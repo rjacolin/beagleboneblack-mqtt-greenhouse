@@ -22,6 +22,9 @@ client.on('connect', function() { // When connected
     // when a message arrives, do something with it
     client.on('message', function(topic, message) {
       console.log("Received '" + message + "' on '" + topic + "'");
+      // Now we have to ack the command:
+      payload="[{\"uid\": \"" + message[0].uid + "\", \"status\":\"OK\"}]";
+      client.publish(serialnumber + '/acks/json', JSON.stringify(payload));
     });
   });
 });
